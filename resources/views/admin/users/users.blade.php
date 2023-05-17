@@ -14,10 +14,10 @@
     <div class="dark:bg-gray-800 dark:text-gray-200 text-gray-800 bg-gray-200 rounded pt-6 pb-8 mb-4 ml-20 mr-20">
         <table class="text-center w-full">
             <tr>
-                <th>Naam</th>
+                <th>Name</th>
                 <th>Email</th>
-                <th>Functie</th>
-                <th>Acties</th>
+                <th>Function</th>
+                <th>Actions</th>
             </tr>
 
             @foreach($users as $user)
@@ -28,12 +28,12 @@
 
                     <td class="grid grid-cols-2">
                         <form method="get" action="{{route('user.edit', ['user' => $user])}}">
-                            <x-secondary-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Aanpassen
+                            <x-secondary-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Change
                             </x-secondary-button>
                         </form>
 
                         <form method="get" action="{{route('DeleteUser', ['user' => $user])}}">
-                            <x-secondary-button type="submit"><i class="fa-solid fa-eraser"></i> Verwijderen
+                            <x-secondary-button type="submit"><i class="fa-solid fa-eraser"></i> Delete
                             </x-secondary-button>
                         </form>
 

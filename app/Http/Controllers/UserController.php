@@ -38,6 +38,6 @@ class UserController extends Controller
         $UserModel->save();
 
 
-        return $this->index();
+        return redirect()->route('users');
     }
 }

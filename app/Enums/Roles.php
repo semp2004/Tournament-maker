@@ -6,5 +6,5 @@ enum Roles
 {
     case Admin;
     case User;
-    case Scheidsrechter;
+    case Referee;
 }
