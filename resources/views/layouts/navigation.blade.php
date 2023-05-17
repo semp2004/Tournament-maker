@@ -17,19 +17,23 @@
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @if(Auth::user()->role == 'Admin')
-                        <x-nav-link :href="route('users')" :active="request()->routeIs('Users')">
-                            {{ __('Users') }}
-                        </x-nav-link>
-                </div>
-                @else
+                <x-nav-container-permissions :permission="App\Enums\Roles::Admin->name">
+                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                        {{ __('Users') }}
+                    </x-nav-link>
+                </x-nav-container-permissions>
+
+                <x-nav-container-permissions :permission="App\Enums\Roles::Admin->name">
+                    <x-nav-link :href="route('teams')" :active="request()->routeIs('teams')">
+                        {{ __('Teams') }}
+                    </x-nav-link>
+                </x-nav-container-permissions>
             </div>
-            @endif
         </div>
 
+
         <!-- Settings Dropdown -->
-        <div class="hidden sm:flex sm:items-center sm:ml-6">
+        <div class="absolute top-4 right-10 hidden sm:flex sm:items-center sm:ml-6">
             <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
                     <button
@@ -80,7 +84,6 @@
                 </svg>
             </button>
         </div>
-    </div>
     </div>
 
     <!-- Responsive Navigation Menu -->
