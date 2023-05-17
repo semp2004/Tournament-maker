@@ -2,7 +2,7 @@
 
 use App\Enums\Roles;
 use App\Http\Controllers\ProfileController;
-use Couchbase\Role;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/edituser/{user}', [\App\Http\Controllers\UserController::class, 'EditUserRequest'])->middleware('role:' . Roles::Admin->name)->name('EditUser');
     Route::get('/admin/deleteuser/{user}', [\App\Http\Controllers\UserController::class, 'DeleteUser'])->middleware('role:' . Roles::Admin->name)->name('DeleteUser');
 
+    // teams
+    Route::get('/admin/teams', [TeamController::class, 'index'])->middleware('role:' . Roles::Admin->name)->name('teams');
+    Route::get('/admin/team/add', [TeamController::class, 'add'])->middleware('role:' . Roles::Admin->name)->name('team.add');
+    Route::get('/admin/team/edit/{team}', [TeamController::class, 'edit'])->middleware('role:' . Roles::Admin->name)->name('team.edit');
+    Route::post('admin/team/add', [TeamController::class, 'addPost'])->middleware('role:' . Roles::Admin->name)->name('team.add-post');
+    Route::post('/admin/team/update', [TeamController::class, 'update'])->middleware('role:' . Roles::Admin->name)->name('team.update');
+    Route::delete('/admin/team/delete', [TeamController::class, 'destroy'])->middleware('role:' . Roles::Admin->name)->name('team.destroy');
 });
 
 
