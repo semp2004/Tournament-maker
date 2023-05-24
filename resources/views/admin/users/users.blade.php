@@ -16,14 +16,25 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Team</th>
                 <th>Function</th>
                 <th>Actions</th>
             </tr>
 
             @foreach($users as $user)
                 <tr>
+
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
+
+                    @if(! $user->teams()->exists())
+                        <td>No team</td>
+                    @elseif($user->teams()->exists())
+                        @foreach($user->teams as $team)
+                            <td>{{$team->name}}</td>
+                        @endforeach
+                    @endif
+
                     <td>{{$user->role}}</td>
 
                     <td class="grid grid-cols-2">
