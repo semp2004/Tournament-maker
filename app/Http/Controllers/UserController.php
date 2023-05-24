@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\User;
 
 class UserController extends Controller
@@ -9,13 +10,20 @@ class UserController extends Controller
     public function index()
     {
         $Users = User::get();
-        return view('admin.users.users', data: ['users' => $Users]);
+        return view(
+            'admin.users.users', [
+                'users' => $Users,
+                'teams' => Team::all()
+            ]);
     }
 
     public function edit($id)
     {
         $User = User::where('id', $id)->FirstOrFail();
-        return view(view: 'admin.users.editUser', data: ['user' => $User]);
+        return view('admin.users.editUser', [
+            'user' => $User,
+            'teams' => Team::all(),
+        ]);
     }
 
     public function DeleteUser($id)
@@ -24,20 +32,28 @@ class UserController extends Controller
         $UserModel->delete();
         return redirect()->route('users');
     }
-
     public function EditUserRequest(int $id)
     {
-        $Name = \request()->get('name');
-        $Email = \request()->get('email');
+        $name = \request()->get('name');
+        $email = \request()->get('email');
         $role = \request()->get('role');
+        $team = \request()->get('team');
+        $team = Team::find($team);
 
-        $UserModel = User::where('id', $id)->first();
-        $UserModel->name = $Name;
-        $UserModel->email = $Email;
-        $UserModel->role = $role;
-        $UserModel->save();
+        $userModel = User::where('id', $id)->first();
+        $userModel->name = $name;
+        $userModel->email = $email;
+        $userModel->role = $role;
+        $userModel->save();
 
+        if ($team === null) {
+            $userModel->teams()->detach();// Remove the linked team if it's null
+        } else {
+            $userModel->teams()->sync($team); // Save the selected team in the linked table
+        }
 
         return redirect()->route('users');
     }
+
+
 }

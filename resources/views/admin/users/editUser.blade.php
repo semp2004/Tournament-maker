@@ -27,10 +27,24 @@
 
             <div class=" mt-4 w-full">
                 <x-input-label for="name" value="Function" class=""/>
-                <select name="role" :value="$user->role" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm'">
+                <select name="role" :value="$user->role"
+                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm'">
+                    <option value="user">--Please choose an option--</option>
                     <option value="admin">Admin</option>
                     <option value="referee">referee</option>
                     <option value="user">User</option>
+                </select>
+
+            </div>
+
+            <div class=" mt-4 w-full">
+                <x-input-label for="name" value="Team selecter" class=""/>
+                <select name="team"
+                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm'">
+                    <option value="na">--Please choose an option--</option>
+                    @foreach($teams as $team)
+                        <option value="{{$team->id}}">{{$team->name}}</option>
+                    @endforeach
                 </select>
 
             </div>
