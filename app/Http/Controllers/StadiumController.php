@@ -113,4 +113,22 @@ class StadiumController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroyImage($id)
+    {
+        $stadium = Stadium::find($id);
+
+        if (!$stadium) {
+            abort(404);
+        }
+
+        if (isset($stadium->image_path)) {
+            Storage::delete($stadium->image_path);
+
+            $stadium->image_path = null;
+            $stadium->save();
+        }
+
+        return redirect()->back();
+    }
 }

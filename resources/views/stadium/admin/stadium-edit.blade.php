@@ -28,5 +28,12 @@
                 <x-secondary-button type="submit" class="mt-6 px-20">Edit</x-secondary-button>
             </div>
         </form>
+        @if(isset($stadium->image_path))
+            <form method="POST" class="px-7 mt-2 flex flex-col items-center">
+                @method('DELETE')
+                @csrf
+                <x-danger-button type="submit">Delete image</x-danger-button>
+            </form>
+        @endif
     </div>
 @endsection

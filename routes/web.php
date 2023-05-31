@@ -56,6 +56,7 @@ Route::middleware('admin')->group(function () {
     Route::post('/admin/stadium/add', [StadiumController::class, 'store']);
     Route::post('/admin/stadium/edit/{team}', [StadiumController::class, 'update']);
 
+    Route::delete('/admin/stadium/edit/{stadium}', [StadiumController::class, 'destroyImage']);
     Route::delete('admin/stadium/delete', [StadiumController::class, 'destroy'])->name('stadium.destroy');
 });
 
