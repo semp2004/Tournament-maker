@@ -1,16 +1,9 @@
 @extends('layouts.app')
 @props(['users' => $users])
 
-
-@section('header')
-    <h2>
-        <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Gebruikers aanpassen</h1>
-    </h2>
-@endsection
-
-
-
 @section('content')
+    <h1 class="text-center mt-6 text-3xl">Users</h1>
+    <br>
     <div class="dark:bg-gray-800 dark:text-gray-200 text-gray-800 bg-gray-200 rounded pt-6 pb-8 mb-4 ml-20 mr-20">
         <table class="text-center w-full">
             <tr>
@@ -39,12 +32,12 @@
 
                     <td class="grid grid-cols-2">
                         <form method="get" action="{{route('user.edit', ['user' => $user])}}">
-                            <x-secondary-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Change
+                            <x-secondary-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Edit
                             </x-secondary-button>
                         </form>
 
                         <form method="get" action="{{route('DeleteUser', ['user' => $user])}}">
-                            <x-secondary-button type="submit"><i class="fa-solid fa-eraser"></i> Delete
+                            <x-secondary-button type="submit" class="!bg-gray-800 !border-1 !border-red-500 !text-red-300"><i class="fa-solid fa-eraser"></i> Delete
                             </x-secondary-button>
                         </form>
 
