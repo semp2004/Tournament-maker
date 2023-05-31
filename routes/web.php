@@ -3,6 +3,7 @@
 use App\Enums\Roles;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\StadiumController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/stadiums', [StadiumController::class, 'index'])->name('stadiums');
+Route::get('/stadium/{stadium}', [StadiumController::class, 'stadium'])->name('stadium');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -41,6 +45,18 @@ Route::middleware('auth')->group(function () {
     Route::post('admin/team/add', [TeamController::class, 'addPost'])->middleware('role:' . Roles::Admin->name)->name('team.add-post');
     Route::post('/admin/team/update', [TeamController::class, 'update'])->middleware('role:' . Roles::Admin->name)->name('team.update');
     Route::delete('/admin/team/delete', [TeamController::class, 'destroy'])->middleware('role:' . Roles::Admin->name)->name('team.destroy');
+});
+
+// Admin middleware //
+Route::middleware('admin')->group(function () {
+    Route::get('/admin/stadiums', [StadiumController::class, 'adminIndex'])->name('admin.stadiums');
+    Route::get('/admin/stadium/add', [StadiumController::class, 'add'])->name('stadium.add');
+    Route::get('/admin/stadium/edit/{stadium}', [StadiumController::class, 'edit'])->name('stadium.edit');
+
+    Route::post('/admin/stadium/add', [StadiumController::class, 'store']);
+    Route::post('/admin/stadium/edit/{team}', [StadiumController::class, 'update']);
+
+    Route::delete('admin/stadium/delete', [StadiumController::class, 'destroy'])->name('stadium.destroy');
 });
 
 
