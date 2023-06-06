@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stadium;
 use Illuminate\Http\Request;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class StadiumController extends Controller
 {
