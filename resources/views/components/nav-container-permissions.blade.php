@@ -1,10 +1,6 @@
 @props(['permission'])
 
-@php
-    $perm = ($permission ?? false)
-@endphp
-
-@if (Auth::user()->role ?? 'N/A' == $perm)
+@if (isset(Auth::user()->role) && Auth::user()->role == $permission)
     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
         {{ $slot }}
     </div>
