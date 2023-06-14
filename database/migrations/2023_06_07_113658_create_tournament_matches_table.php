@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('tournament_matches', function (Blueprint $table) {
             $table->id();
 
-            $table->string("round");
+            $table->integer("round");
 
             $table->integer("team_1_score")->default(0);
-            $table->foreignIdFor(\App\Models\Team::class, 'team_1_id');
+            $table->foreignIdFor(\App\Models\Team::class, 'team_1_id')->nullable();
 
             $table->integer("team_2_score")->default(0);
-            $table->foreignIdFor(\App\Models\Team::class, 'team_2_id');
+            $table->foreignIdFor(\App\Models\Team::class, 'team_2_id')->nullable();
+
+            $table->foreignIdFor(\App\Models\Team::class, 'winner_id')->nullable();
 
             $table->timestamps();
         });

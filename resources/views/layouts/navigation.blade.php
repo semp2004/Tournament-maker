@@ -17,6 +17,12 @@
                     </x-nav-link>
                 </div>
 
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('tournaments')" :active="request()->routeIs('Tournaments')">
+                        {{ __('Tournaments') }}
+                    </x-nav-link>
+                </div>
+
                 <x-nav-container-permissions :permission="App\Enums\Roles::Admin->name">
                     <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
                         {{ __('Users') }}

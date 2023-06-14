@@ -45,6 +45,14 @@ Route::middleware('auth')->group(function () {
     Route::post('admin/team/add', [TeamController::class, 'addPost'])->middleware('role:' . Roles::Admin->name)->name('team.add-post');
     Route::post('/admin/team/update', [TeamController::class, 'update'])->middleware('role:' . Roles::Admin->name)->name('team.update');
     Route::delete('/admin/team/delete', [TeamController::class, 'destroy'])->middleware('role:' . Roles::Admin->name)->name('team.destroy');
+
+    // tournaments
+    Route::get('/tournament/view', [\App\Http\Controllers\TournamentController::class, 'index'])->middleware('role:' . Roles::Admin->name)->name('tournaments');
+    Route::get('/tournament/view/{tournament}', [\App\Http\Controllers\TournamentController::class, 'singleview'])->middleware('role:' . Roles::Admin->name)->name('tournament.view');
+    Route::get('/tournament/add', [\App\Http\Controllers\TournamentController::class, 'add'])->middleware('role:' . Roles::Admin->name)->name('tournament.add');
+    Route::get('/tournament/edit/{tournament}', [\App\Http\Controllers\TournamentController::class, 'edit'])->middleware('role:' . Roles::Admin->name)->name('tournament.edit');
+    Route::post('/tournament/add', [\App\Http\Controllers\TournamentController::class, 'store'])->middleware('role:' . Roles::Admin->name)->name('tournament.store');
+    Route::get('/tournament/delete/{tournament}', [\App\Http\Controllers\TournamentController::class, 'delete'])->middleware('role:' . Roles::Admin->name)->name('tournament.destroy');
 });
 
 // Admin middleware //
