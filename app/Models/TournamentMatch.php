@@ -21,11 +21,13 @@ class TournamentMatch extends Model
         return $this->belongsTo(Tournament::class);
     }
 
-    public function teams()
+    public function team1()
     {
-        return [
-            $this->hasOne(Team::class, 'id', 'team_1_id'),
-            $this->hasOne(Team::class, 'id', 'team_2_id'),
-        ];
+        return $this->belongsTo(Team::class, 'team_1_id');
+    }
+
+    public function team2()
+    {
+        return $this->belongsTo(Team::class, 'team_2_id');
     }
 }

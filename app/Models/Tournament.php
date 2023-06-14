@@ -22,7 +22,7 @@ class Tournament extends Model
 
     public function matches()
     {
-        return $this->belongsTo(TournamentMatch::class);
+        return $this->hasMany(TournamentMatch::class);
     }
 
     public function referee()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\Tournament;
+use App\Models\TournamentMatch;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,11 +18,13 @@ class TournamentController extends Controller
             ]);
     }
 
-    public function singleview($id)
+    public function singleview(Tournament $tournament)
     {
-        return view('tournament.tournament',
-            [
-                'tournament' => Tournament::find($id)
+        $tournament->loadMissing(['matches', 'teams']);
+
+        return view('tournament.tournament', [
+                'tournament' => $tournament,
+                'referee' => $tournament->referee->name,
             ]);
     }
 
