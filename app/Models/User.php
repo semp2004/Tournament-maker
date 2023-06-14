@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Team::class, 'team_users');
     }
+
+    public function tournaments()
+    {
+        return $this->hasOne(tournament::class, 'referee_id');
+    }
+
+    public function matches()
+    {
+        return $this->hasOne(tournamet::class, 'referee_id');
+    }
 }
