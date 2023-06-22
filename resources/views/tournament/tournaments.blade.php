@@ -17,7 +17,7 @@
                 <th>Actions</th>
             </tr>
 
-        @foreach($tournaments as $tournament)
+            @foreach($tournaments as $tournament)
                 <tr>
                     <td>{{$tournament->name}}</td>
                     <td>{{$tournament->description}}</td>
@@ -31,9 +31,36 @@
                         <form method="get" action="{{route('tournament.edit', ['tournament' => $tournament])}}">
                             <x-secondary-button>Edit</x-secondary-button>
                         </form>
-                        <form method="get" action="{{route('tournament.destroy', ['tournament' => $tournament])}}">
-                            <x-danger-button href="#">Delete</x-danger-button>
-                        </form>
+
+                        <div>
+                            <x-danger-button type="submit"
+                                             class="!bg-gray-800 !border-1 !border-red-500 !text-red-300"
+                                             x-data=""
+                                             x-on:click.prevent="$dispatch('open-modal', 'confirm-team-deletion-{{ $tournament->id }}')">
+                                Delete
+                            </x-danger-button>
+                        </div>
+                        <x-modal name="confirm-team-deletion-{{ $tournament->id }}" focusable>
+                            <h2 class="mt-2 text-lg font-medium text-gray-900 dark:text-gray-100 pl-5">
+                                Are you sure you want to delete this tournament: <b>{{ $tournament->name }}</b>?
+                            </h2>
+                            <input type="hidden" name="id" value="{{ $tournament->id }}">
+                            <div class="flex justify-center align-content-center">
+                                <x-secondary-button class="my-6" x-on:click="$dispatch('close')">
+                                    Cancel
+                                </x-secondary-button>
+
+                                <form method="get"
+                                      action="{{route('tournament.destroy', ['tournament' => $tournament])}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <x-danger-button type="submit"
+                                                     class="ml-5 my-6 !bg-gray-800 !border-1 !border-red-500 !text-red-300">
+                                        Delete
+                                    </x-danger-button>
+                                </form>
+                            </div>
+                        </x-modal>
                     </td>
                 </tr>
             @endforeach
