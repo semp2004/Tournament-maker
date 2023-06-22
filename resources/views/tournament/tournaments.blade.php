@@ -17,13 +17,14 @@
                 <th>Actions</th>
             </tr>
 
-            @foreach($tournaments as $tournament)
+        @foreach($tournaments as $tournament)
                 <tr>
                     <td>{{$tournament->name}}</td>
                     <td>{{$tournament->description}}</td>
                     <td>{{$tournament->referee->name}}</td>
 
                     <td>
+                        <br>
                         <form method="get" action="{{route('tournament.view', ['tournament' => $tournament])}}">
                             <x-primary-button>View</x-primary-button>
                         </form>
